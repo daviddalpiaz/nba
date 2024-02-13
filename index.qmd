@@ -1,0 +1,57 @@
+---
+title: "NBA Rest Days"
+subtitle: "2015 - 2016 Season"
+author: "David Dalpiaz and CS 498"
+format: html
+embed-resources: true
+execute: 
+  echo: false
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis odio justo, egestas eu urna in, posuere aliquam metus. Integer fermentum dignissim diam, eget convallis eros pharetra id. Cras nec mollis nisl. In fermentum tellus elit, ut pharetra ante ultricies in. Aliquam erat volutpat. Suspendisse nec ligula vel eros maximus sollicitudin at ac orci. In at nisi ac mi bibendum vestibulum. Aenean vitae facilisis erat. Donec enim lacus, posuere sed dictum id, fermentum sit amet leo. Etiam rutrum risus metus, nec iaculis mi scelerisque ac. Praesent eros felis, convallis ac facilisis eget, venenatis sed libero. Vestibulum dignissim hendrerit orci, sit amet eleifend risus consectetur bibendum. Maecenas eget elit diam.
+
+```{python}
+import pandas as pd
+import great_tables as gt
+```
+
+```{python}
+rest = pd.read_csv("data/rest.csv")
+```
+
+```{python}
+rest = rest.pivot(index='team', columns='location')
+rest.columns = ['_'.join(col).strip() for col in rest.columns.values]
+rest = rest.reset_index()
+```
+
+```{python}
+#| echo: false
+(
+    gt.GT(data=rest, rowname_col="team")
+    .tab_header(title="Home and Away Rest Days", subtitle=f"2015 - 2016 NBA Season")
+    .fmt_number(columns=["mean_away", "mean_home", "std_away", "std_home"], compact=True)
+    .tab_spanner(label="Home", columns=["mean_home", "std_home"])
+    .tab_spanner(label="Away", columns=["mean_away", "std_away"])
+    .cols_label(
+        mean_home="Mean",
+        mean_away="Mean",
+        std_home="SD",
+        std_away="SD",
+    )
+    .tab_source_note(
+        source_note = gt.md("Source: [Basketball Reference](https://www.basketball-reference.com/)")
+    )
+    .tab_source_note(
+        source_note = gt.md("Reference: [Modern Pandas: Tidy Data](https://tomaugspurger.net/posts/modern-5-tidy/)")
+    )
+)
+```
+
+Duis facilisis, mi et efficitur viverra, magna nibh laoreet purus, id iaculis libero lectus et velit. Pellentesque mollis nibh arcu, in malesuada metus ultricies non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget orci non arcu hendrerit condimentum eu sit amet sem. Etiam at luctus mi. Curabitur finibus nibh ligula, sit amet aliquam libero posuere in. Maecenas tempor fermentum commodo. Aliquam sem quam, lacinia quis nunc non, molestie pretium nisi. Morbi nec justo eget eros ullamcorper cursus eu nec sapien. Suspendisse ultrices felis sit amet leo sagittis lobortis. Praesent ac accumsan eros, eu ultrices risus. Sed ut leo et nunc bibendum condimentum. Vivamus facilisis id metus ut imperdiet. Nullam libero ligula, aliquam id vestibulum id, eleifend pharetra sem. Aliquam faucibus nisl quis mi molestie, non elementum mauris eleifend. Curabitur eros velit, posuere nec condimentum ultrices, tempus id quam.
+
+Quisque dapibus magna magna, consectetur consequat erat elementum nec. Suspendisse in purus velit. Nulla interdum commodo odio, eget rhoncus leo aliquam non. Aenean lacinia risus sit amet lectus aliquam, eu aliquet justo sagittis. Donec in luctus eros. Vivamus non nunc libero. Suspendisse varius porttitor ex non facilisis.
+
+Vestibulum arcu lacus, volutpat at massa id, convallis posuere lacus. Quisque scelerisque aliquet lectus, condimentum suscipit ante cursus vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum semper tortor vitae ex faucibus porta. Praesent varius odio erat, in aliquet neque ullamcorper sed. Nam non justo a ante blandit auctor sed quis nisi. Sed finibus tempus euismod. Pellentesque suscipit odio nisl. Cras quis ante consequat, feugiat dolor id, volutpat neque. Etiam venenatis vestibulum neque, bibendum eleifend ligula. Aliquam sollicitudin dictum lorem. Morbi vehicula dictum ex vel pellentesque. Proin a metus odio. Nulla facilisi. Nulla volutpat pellentesque laoreet. Mauris nec gravida ante.
+
+Fusce lacinia sodales arcu sit amet tristique. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent aliquam nunc eget tellus vestibulum, sit amet finibus magna blandit. Nullam condimentum vel leo non gravida. Morbi rutrum aliquam sollicitudin. Fusce in tincidunt nibh, non gravida sapien. Mauris malesuada ipsum a ex sagittis fermentum. Suspendisse blandit vitae urna ac pharetra. Nulla tempus gravida nisl at laoreet. Suspendisse id est nisl. Suspendisse non turpis sodales, efficitur nisl vel, mollis elit. Nunc cursus ex sed enim molestie imperdiet. Morbi tempus id risus eget scelerisque. 
